@@ -77,6 +77,13 @@ echo "--------------------"
 #Show Windows updates that still need to be installed
 (New-Object -ComObject Microsoft.Update.Session).CreateupdateSearcher().Search('IsHidden=0 and IsInstalled=0').Updates | Select-Object Title
 
+# Sleep for 5 seconds. This presents the output of the Windows Updates
+# section from being cut off by the following commands
+
+echo ""
+Start-Sleep -Seconds 3
+echo "Testing complete."
+Read-Host -Prompt "Press Enter to exit"
 
 
 

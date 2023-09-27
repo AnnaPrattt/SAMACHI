@@ -3,7 +3,7 @@
 ## BYU IS 565 - Digital Forensics with Dr. Justin Giboney
 
 ### Overview
-SAMACHI (Secure Audit Machine) is a simple PowerShell script that checks your Windows device for some basic secure configuration settings. We developed it as a custom security tool to help cyber defenders with checking Windows configurations for security concerns. We are currently developing this script and adding more features so that it checks for more configuration settings.
+SAMACHI (Secure-Audited Machine) is a simple PowerShell script that checks your Windows device for some basic secure configuration settings. We developed it as a custom security tool to help cyber defenders with checking Windows configurations for security concerns. We are currently developing this script and adding more features so that it checks for more configuration settings.
 
 
 ### How to Run
@@ -23,7 +23,7 @@ If you see an Unknown Publisher error as shown in Figure 2 below, click on the O
 
 *Figure 2: Unknown Publisher Error*
 
-Because this script is not signed, many people encounter an issue with the execution policy. Machines running Windows 11 encounter this issue more often. In order to avoid the issue follow the following steps:
+Because this script is not signed, many people encounter an issue with the execution policy. We have observed that cachines running Windows 11 encounter this issue more often, but it may occur on Windows 10 as well. In order to avoid this issue perform the following steps:
 1. Run powershell as Admin
 2. Check your execution policy so that you can return it back to normal after running the script. Run `Get-ExecutionPolicy -List` and make note of the default settings.
 3. Run `Set-ExecutionPolicy Unrestricted` to enable any script to be run. Then press r to run.

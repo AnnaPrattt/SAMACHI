@@ -1,5 +1,21 @@
 echo "Welcome to the automated security audit. These findings will show you if you have base-level security enabled on your computer."
 
+
+echo ""
+echo "AntiVirus:"
+echo "--------------------"
+
+$AVStatus = Get-MpComputerStatus | select AntivirusEnabled
+if ($AVStatus[0].AntivirusEnabled -eq $False) {
+    echo "You're Windows Antivirus is turned off."
+    echo "If you have another Antivirus program on your computer, you can disregard."
+    echo "If you do not have another solution, you should enable your Windows Antivirus"
+}
+else {
+    echo "Your Antivirus is enabled. Way to be secure!"
+}
+
+
 echo ""
 echo "Firewall:"
 echo "--------------------"

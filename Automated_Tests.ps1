@@ -21,7 +21,7 @@ if ($OutOfDateSignatureStatus[0].DefenderSignaturesOutOfDate -eq $True) {
     echo "Update your Windows security in order to be secure"
 }
 else {
-    echo "Your Antivirus knowledge base is enabled. Way to be secure!"
+    echo "Your Antivirus knowledge base is up to date. Way to be secure!"
 }
 
 echo ""

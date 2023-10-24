@@ -1,8 +1,8 @@
 # SAMACHI: Secure Audit Machine
-## By Anna Pratt, Riley Croft, Dallin Duke, and Eric Pressler
-## BYU IS 565 - Digital Forensics with Dr. Justin Giboney
+### By Anna Pratt, Riley Croft, Dallin Duke, and Eric Pressler
+# BYU IS 565 - Digital Forensics with Dr. Justin Giboney
 
-### Overview
+## Overview
 SAMACHI (Secure-Audited Machine) is a simple PowerShell script that checks your Windows device for some basic secure configuration settings. We developed it as a custom security tool to help cyber defenders with checking Windows configurations for security concerns. We are currently developing this script and adding more features so that it checks for more configuration settings.
 
 
@@ -70,3 +70,14 @@ Because this script is not signed, many people encounter an issue with the execu
 ![DellUpdatesPending](/DellUpdatesPending.png) 
 
 *Figure 10: shows a visual representation of the updates that were detailed in the script. The script notified the user that they needed to install these updates.*
+
+
+
+## Features
+The automated program audits the following security features.
+
+* Antivirus
+* Firewall
+* User Accounts
+* Secure Boot and Smart Screen
+* Windows Updates

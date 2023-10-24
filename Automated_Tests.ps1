@@ -47,6 +47,28 @@ else {
     echo "Your Guest account is enabled. You should disable it to be secure."
 }
 
+echo ""
+echo "Secure Boot and Smart Screen:"
+echo "--------------------"
+# Checks if SecureBoot is enabled
+$SecureBoot = Confirm-SecureBootUEFI
+if ($SecureBoot -eq $true) {
+    Write-Host "Secure Boot is enabled. Way to be secure!"
+} 
+else {
+    Write-Host "Secure Boot is not enabled. You should turn it on to protect your computer."
+}
+
+#$ Checks if Smart Screen is enabled
+$SmartScreenSettings = Get-MpPreference
+
+if ($SmartScreenSettings.SmartScreenEnabled -eq $on) {
+    Write-Host "Smart Screen is enabled. Way to be secure!"
+} 
+else {
+    Write-Host "Smart Screen is not enabled. You should turn it on for more protection."
+}
+
 
 echo ""
 echo "Windows Updates:"

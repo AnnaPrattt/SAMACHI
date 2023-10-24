@@ -2,12 +2,12 @@ echo "Welcome to the automated security audit. These findings will show you if y
 
 
 echo ""
-echo "AntiVirus:"
+echo "Antivirus:"
 echo "--------------------"
 
 $AVStatus = Get-MpComputerStatus | select AntivirusEnabled
 if ($AVStatus[0].AntivirusEnabled -eq $False) {
-    echo "You're Windows Antivirus is turned off."
+    echo "Your Windows Antivirus is turned off."
     echo "If you have another Antivirus program on your computer, you can disregard."
     echo "If you do not have another solution, you should enable your Windows Antivirus"
 }
@@ -15,6 +15,14 @@ else {
     echo "Your Antivirus is enabled. Way to be secure!"
 }
 
+$OutOfDateSignatureStatus = Get-MpComputerStatus | select DefenderSignaturesOutOfDate
+if ($OutOfDateSignatureStatus[0].DefenderSignaturesOutOfDate -eq $True) {
+    echo "Your Antivirus knowledge base is out of date."
+    echo "Update your Windows security in order to be secure"
+}
+else {
+    echo "Your Antivirus knowledge base is enabled. Way to be secure!"
+}
 
 echo ""
 echo "Firewall:"

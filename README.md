@@ -74,10 +74,10 @@ Because this script is not signed, many people encounter an issue with the execu
 
 
 ## Features
-The automated program audits the following security features.
+The automated program audits the following security features:
 
 * Antivirus
 * Firewall
 * User Accounts
-* Secure Boot and Smart Screen
+* Miscellaneous Security Features
 * Windows Updates

@@ -72,7 +72,7 @@ else {
 }
 
 echo ""
-echo "Secure Boot and Smart Screen:"
+echo "Miscellaneous Security Features:"
 echo "--------------------"
 # Checks if SecureBoot is enabled
 $SecureBoot = Confirm-SecureBootUEFI

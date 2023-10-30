@@ -102,6 +102,16 @@ else {
     echo "SMBv1 is enabled on this computer, but this protocol version is deprecated. You should disable it to be secure."
 }
 
+# Checks to see if tamper protection is enable to prevent malware from changing security settings
+
+$protectionStatus = Get-MpComputerStatus
+
+if ($protectionStatus.TamperProtectionStatus -eq "TamperProtectionEnabled") {
+    Write-Host "Tamper Protection is enabled on this machine. Way to secure!"
+} else {
+    Write-Host "Tamper Protection is not enabled on this machine. Consider enabling it to prevent malware from making changes to your secuirty settings."
+}
+
 echo ""
 echo "Windows Updates:"
 echo "--------------------"
@@ -116,3 +126,4 @@ Start-Sleep -Seconds 3
 echo ""
 echo "Testing complete."
 Read-Host -Prompt "Press Enter to exit"
+

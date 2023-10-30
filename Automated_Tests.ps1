@@ -93,6 +93,14 @@ else {
     Write-Host "Smart Screen is not enabled. You should turn it on for more protection."
 }
 
+$SMBv1Enabled = Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+
+if ($SMBv1Enabled.state -eq $false) {
+    echo "SMBv1 is disabled. Way to be secure!"
+}
+else {
+    echo "SMBv1 is enabled on this computer, but this protocol version is deprecated. You should disable it to be secure."
+}
 
 echo ""
 echo "Windows Updates:"

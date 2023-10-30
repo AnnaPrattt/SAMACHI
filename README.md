@@ -79,5 +79,10 @@ The automated program audits the following security features:
 * Antivirus
 * Firewall
 * User Accounts
-* Miscellaneous Security Features
 * Windows Updates
+* Miscellaneous Security Features
+
+    * Smart Screen
+    * Secure Boot
+    * SMBv1 
+    

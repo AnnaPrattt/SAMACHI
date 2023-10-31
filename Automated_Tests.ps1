@@ -103,6 +103,20 @@ else {
 }
 
 echo ""
+echo "Encryption:"
+echo "--------------------"
+
+$EncyptionStatus = Get-BitLockerVolume
+
+if ($EncryptionStatus.VolumeStatus -like "*ecrypted*") {
+    echo "Your device is not encrypted."
+}
+else {
+   echo "Your device is encrypted."
+}
+
+
+echo ""
 echo "Tamper Protection:"
 echo "--------------------"
 

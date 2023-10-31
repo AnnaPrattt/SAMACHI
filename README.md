@@ -80,6 +80,8 @@ The automated program audits the following security features:
 * Firewall
 * User Accounts
 * Windows Updates
+* Tamper Protection
+* Drive Encryption
 * Miscellaneous Security Features
 
     * Smart Screen

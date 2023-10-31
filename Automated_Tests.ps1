@@ -24,13 +24,13 @@ else {
     echo "Your Antivirus knowledge base is up to date. Way to be secure!"
 }
 
+
 echo ""
 echo "Firewall:"
 echo "--------------------"
 #Gather firewall status into one variable
 #This result will later be parsed into its different firewall profiles
 $result = Get-NetFirewallProfile
-
 
 #$result[0] is the results only for the DOMAIN firewall
 $contentForDomainFW = $result[0]
@@ -59,6 +59,7 @@ else {
     echo "Your public firewall is disabled. You should turn it on to protect your computer."
 }
 
+
 echo ""
 echo "User Accounts:"
 echo "--------------------"
@@ -70,6 +71,7 @@ if ($guestUserContent.enabled -eq $false) {
 else {
     echo "Your Guest account is enabled. You should disable it to be secure."
 }
+
 
 echo ""
 echo "Miscellaneous Security Features:"
@@ -83,6 +85,10 @@ else {
     Write-Host "Secure Boot is not enabled. You should turn it on to protect your computer."
 }
 
+
+echo ""
+echo "Smart Screen:"
+echo "--------------------"
 #$ Checks if Smart Screen is enabled
 $SmartScreenSettings = Get-MpPreference
 
@@ -103,20 +109,6 @@ else {
 }
 
 echo ""
-echo "Encryption:"
-echo "--------------------"
-
-$EncyptionStatus = Get-BitLockerVolume
-
-if ($EncryptionStatus.VolumeStatus -like "*ecrypted*") {
-    echo "Your device is not encrypted."
-}
-else {
-   echo "Your device is encrypted."
-}
-
-
-echo ""
 echo "Tamper Protection:"
 echo "--------------------"
 
@@ -133,6 +125,48 @@ if ($tpStatus -ne $null) {
 }
 else {
     Write-Host "Unable to determine Tamper Protection status."
+}
+
+
+echo ""
+echo "Google Chrome Version:"
+echo "--------------------"
+# Test to see if Chrome is installed
+$chromeInstalled = Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe"
+if ($chromeInstalled) {
+    # Get the version info of the currently installed Chrome version
+    $versionInfo = (Get-Item (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe")."(Default)").VersionInfo
+    # Extract just the version number
+    $version = $versionInfo.ProductVersion
+
+    # Scrape the latest stable version of Google Chrome from this website: https://omahaproxy.appspot.com/all?csv=1
+    $response = Invoke-WebRequest -Uri "https://omahaproxy.appspot.com/all?csv=1"
+    $scrapedData = $response.content
+
+    # Split the response data into an array 
+    $respArr = $scrapedData.Split("`n")
+    $stableInfo = $respArr[20]
+    # Confirm that $stableInfo is indeed the correct string that contains the info about the stable version of Chrome for win64
+    if ($stableInfo.SubString(0, 13 ) -ne "win64,stable,") {
+        echo "Internal script logic error: `$respArr[20] does not contain the stable version info for win64 based Chromium."
+        echo "Skipping Test."
+    }
+    # Get just the version number of the latest stable version of Chrome
+    $newestStableChrome = $stableInfo.SubString(13, 14)
+
+    # Check the installed Chrome version number versus the latest stable version of Chrome
+    if ($version -eq $newestStableChrome) {
+        echo "You have the latest stable verion of Chrome installed. Way to keep it up to date!"
+    }
+    elseif ($version.SubString(0, 3) -eq $newestStableChrome.SubString(0, 3)) {
+        echo "You are at least one minor version behind on Chrome. Consider updating Chrome."
+    }
+    else {
+        echo "Your version of Google Chrome is very outdated! Please upgrade it ASAP!"
+    }
+}
+else {
+    echo "Google Chrome is not installed. Skipping Test."
 }
 
 

@@ -72,9 +72,19 @@ else {
     echo "Your Guest account is enabled. You should disable it to be secure."
 }
 
+echo ""
+echo "Last Quick Scan:" 
+# Checks when thelast quick scan happened
+$LastQuickStand = Get-MpComputerStatus | Select QuickScanEndTime
+$LastQuickStand
+Start-Sleep -Seconds 1
 
 echo ""
 echo "Miscellaneous Security Features:"
+
+
+echo ""
+echo "SecureBoot Status:"
 echo "--------------------"
 # Checks if SecureBoot is enabled
 $SecureBoot = Confirm-SecureBootUEFI
@@ -85,20 +95,39 @@ else {
     Write-Host "Secure Boot is not enabled. You should turn it on to protect your computer."
 }
 
-
 echo ""
-echo "Smart Screen:"
+echo "Tamper Protection:"
 echo "--------------------"
-#$ Checks if Smart Screen is enabled
-$SmartScreenSettings = Get-MpPreference
+# Check if tamper protection is enabled
 
-if ($SmartScreenSettings.SmartScreenEnabled -eq $on) {
-    Write-Host "Smart Screen is enabled. Way to be secure!"
+$TamperProtection = Get-MpComputerStatus | Select IsTamperProtected
+
+if ($TamperProtection[0].IsTamperProtected -eq $False) {
+    Write-Host "Tamper protection is not enabled."
 } 
 else {
-    Write-Host "Smart Screen is not enabled. You should turn it on for more protection."
+    Write-Host "Tamper protection is enabled."
 }
 
+echo ""
+echo "Real Time Protection Status:"
+echo "--------------------"
+# Check if tamper protection is enabled
+
+$RealTimeProtection = Get-MpComputerStatus | Select RealTimeProtectionEnabled
+
+if ($RealTimeProtection[0].RealTimeProtectionEnabled -eq $False) {
+    Write-Host "Real Time Protection is not enabled."
+} 
+else {
+    Write-Host "Real Time Protection is enabled."
+}
+
+
+
+echo ""
+echo "SMBv1 status:"
+echo "--------------------"
 $SMBv1Enabled = Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
 
 if ($SMBv1Enabled.state -eq $false) {
@@ -106,25 +135,6 @@ if ($SMBv1Enabled.state -eq $false) {
 }
 else {
     echo "SMBv1 is enabled on this computer, but this protocol version is deprecated. You should disable it to be secure."
-}
-
-echo ""
-echo "Tamper Protection:"
-echo "--------------------"
-
-# Checks to see if tamper protection is enable to prevent malware from changing security settings via the Windows Registry
-$tpStatus = Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender\Features" -Name "TamperProtection"
-
-if ($tpStatus -ne $null) {
-    if ($tpStatus.TamperProtection -eq 1) {
-        Write-Host "Tamper Protection is enabled."
-    }
-    else {
-        Write-Host "Tamper Protection is disabled."
-    }
-}
-else {
-    Write-Host "Unable to determine Tamper Protection status."
 }
 
 

@@ -5,6 +5,46 @@
 ## Overview
 SAMACHI (Secure-Audited Machine) is a simple PowerShell script that checks your Windows device for some basic secure configuration settings. We developed it as a custom security tool to help cyber defenders with checking Windows configurations for security concerns. We are currently developing this script and adding more features so that it checks for more configuration settings.
 
+### Added In November
+
+#### Password Test
+We added `password-test.ps1`, which prompts you for your Windows password and checks to see if your password is contained within the rockyou list, a famous list of over 14 million common passwords. If your password appears in the rockyou list, then your password is a well know password to every hacker in the world, and we recommend you change it.
+
+```PowerShell
+.\password-test.ps1 -p
+```
+
+When the password test portion of the code runs, you will be prompted with a window like that in figure 0 which will ask you for your credentials. Enter anything you want for the username, as the username is not used. But enter in your Windows user password that you use to log into your Windows machine. 
+
+![prompt for password](November-Documentation/enter-pass.png)
+
+*Figure 0: Screenshot of the prompt for user credentials*
+
+```
+Please make sure that your copy of the rockyou list is in the same directory as the Automated_Tests.ps1 file
+```
+
+[The rockyou list can be downloaded here](https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt) (too large for this repo).
+
+***Please note that SAMACHI does NOT store your password or send it over any network connections. The script does not do anything with your password except for compare it to the rockyou list. Furthermore, the password test is optional so if you are uncomfortable entering your password into the script, you do not have to use that specific test.***
+
+#### Possible Password Test Output
+**Successful Output**
+
+![Successful Password Test Output](November-Documentation/passwd-test-good.png)
+
+*Figure 0.1: Successful Password Test Output*
+
+**Failed Output**
+
+![Failed Password Test Output](November-Documentation/passwd-test-fail.png)
+
+*Figure 0.2: Failed Password Test Output*
+
+Regardless of the outcome, SAMACHI suggests some good password practices to implement.
+
+Please note that the password test takes approximately 90 seconds to complete.
+
 
 ### How to Run
 To run SAMACHI, first download the file or clone this GitHub repo. The easiest way to run the script is to right click the .ps1 file and choose the option "Run with PowerShell".
@@ -12,6 +52,7 @@ To run SAMACHI, first download the file or clone this GitHub repo. The easiest w
 ![Run with powershell](/images/run-with-powershell.png)
 
 *Figure 1: Run with PowerShell option after right-clicking the file.*
+
 
 #### Potential Problems
 
